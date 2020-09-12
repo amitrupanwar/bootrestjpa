@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.prac.model.Employee;
+import com.prac.model.EmployeeProj;
 import com.prac.service.EmployeeDAO;
 
 @RestController
 @RequestMapping("/employees")
 public class EmployeeController {
 	@Autowired
-	EmployeeDAO employeeDAO; 
+	EmployeeDAO employeeDAO;
 
 	@GetMapping
 	public List<Employee> getEmployees() {
@@ -42,5 +43,21 @@ public class EmployeeController {
 		return employeeDAO.add(employee);
 
 	}
+
+	@GetMapping("/byName/{name}")
+	public List<Employee> getEmployeeByName(@PathVariable String name) {
+		return employeeDAO.findByName(name);
+	}
+
+	@GetMapping("/emproj")
+	public List<EmployeeProj> getEmProj() {
+		return employeeDAO.getEmployeeProj();
+	}
+
+	@GetMapping("/emaddr/{name}")
+	public String[] getEmAddr(@PathVariable String name) {
+		return employeeDAO.getAddresses(name);
+	}
+
 
 }
